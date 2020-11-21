@@ -2,11 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
     <title>Pure JS Excel</title>
     <link rel="shortcut icon" href="favicon.ico" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>
-    <div id="app">213s</div>
+    <div id="app">
+      <div class="excel">
+        <div class="excel__header">
+          <input type="text" class="excel__header-input" value="Новая таблица" />
+
+          <div>
+            <div class="excel__button">
+              <i class="material-icons">delete</i>
+            </div>
+
+            <div class="excel__button">
+              <i class="material-icons">exit_to_app</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="excel__toolbar"></div>
+
+        <div class="excel__formula"></div>
+
+        <div class="excel__table"></div>
+      </div>
+    </div>
   </body>
 </html>
