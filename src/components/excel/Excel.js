@@ -4,7 +4,10 @@ import { $ } from '@core/dom';
 // $ - dom node
 export class Excel {
   constructor(selector, options) {
-    this.$el = document.querySelector(selector);
+    // this.$el = document.querySelector(selector);
+    // нужно работать в инснансе класса dom
+    // поэтому el создаем с помощью нашей библы
+    this.$el = $(selector);
     this.components = options.components || [];
   }
   // getRoot - возвращает корневую ноду
@@ -18,7 +21,8 @@ export class Excel {
       // const $el = document.createElement('div');
       // $el.classList.add(Component.className);
       const component = new Component($el);
-      $el.innerHTML = component.toHTML();
+      $el.html(component.toHTML());
+      // $el.innerHTML = component.toHTML();
       $root.append($el);
     });
     return $root;

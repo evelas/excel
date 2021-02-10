@@ -8,6 +8,8 @@
   "rules": {
     "no-console": "off",
     "require-jsdoc": "off",
+    "operator-linebreak": "off",
+    "max-len": "off",
     // Mandatory use of consistent spaces in braces
     "object-curly-spacing": [
       2,
