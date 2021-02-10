@@ -13,10 +13,13 @@ export class Excel {
   // getRoot - возвращает корневую ноду
   getRoot() {
     const $root = $.create('div', 'excel');
-    // Component - class constructor  и в методе foreach
-    // мы получаем доступ до
+    // Component - в методе foreach мы получаем доступ до
     // каждого Класса (значит тут мы сможем создавать его instance)
-    this.components.forEach((Component) => {
+
+    // update forEach -> map, чтобы возвращать
+    // инстанс того класса (new Component), от которого мы создаемсся
+    // c forEach мы получали классы, а нам нужны инстансы
+    this.components = this.components.map((Component) => {
       const $el = $.create('div', Component.className);
       // const $el = document.createElement('div');
       // $el.classList.add(Component.className);
@@ -24,6 +27,7 @@ export class Excel {
       $el.html(component.toHTML());
       // $el.innerHTML = component.toHTML();
       $root.append($el);
+      return component;
     });
     return $root;
   }
@@ -33,6 +37,7 @@ export class Excel {
     // afterbegin afterend beforebegin beforeend
     // this.$el.insertAdjacentHTML('afterbegin', `<h1>test</h1>`);
     this.$el.append(this.getRoot());
+    console.log(this.components);
   }
 }
 // $el - как StyleGuide. Так понятее,

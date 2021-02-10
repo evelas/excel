@@ -10,7 +10,9 @@ export class DomListener {
     this.$root = $root;
     this.listeners = listeners;
   }
-
+  // Когда вызываем initDOMListeners
+  // Все элементы должны быть прорисованы
+  // только после render()
   initDOMListeners() {}
   removeDOMListeners() {}
 }
