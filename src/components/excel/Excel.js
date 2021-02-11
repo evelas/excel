@@ -24,6 +24,10 @@ export class Excel {
       // const $el = document.createElement('div');
       // $el.classList.add(Component.className);
       const component = new Component($el);
+      // DEBUG
+      // if (component.name) {
+      //   window['debug' + component.name] = component;
+      // }
       $el.html(component.toHTML());
       // $el.innerHTML = component.toHTML();
       $root.append($el);
@@ -32,12 +36,12 @@ export class Excel {
     return $root;
   }
   render() {
-    console.log(this.$el);
     // у node есть метод insert
     // afterbegin afterend beforebegin beforeend
     // this.$el.insertAdjacentHTML('afterbegin', `<h1>test</h1>`);
     this.$el.append(this.getRoot());
-    console.log(this.components);
+    // у каждого компонента вызываем init
+    this.components.forEach((component) => component.init());
   }
 }
 // $el - как StyleGuide. Так понятее,

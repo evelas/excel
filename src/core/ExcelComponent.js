@@ -6,6 +6,7 @@ export class ExcelComponent extends DomListener {
   // тут constructor одно и тоже что и в super Formula
   constructor($root, options = {}) {
     super($root, options.listeners);
+    this.name = options.name || '';
   }
 
   // toHTML - возвращает шаблон компонента
@@ -15,5 +16,8 @@ export class ExcelComponent extends DomListener {
   //
   init() {
     this.initDOMListeners();
+  }
+  destroy() {
+    this.removeDOMListeners();
   }
 }

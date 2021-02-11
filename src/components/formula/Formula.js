@@ -9,7 +9,7 @@ export class Formula extends ExcelComponent {
     // родительского класса ExcelComponent
     super($root, {
       name: 'Formula',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
     });
   }
 
@@ -21,6 +21,11 @@ export class Formula extends ExcelComponent {
   }
 
   onInput(e) {
-    console.log('formula: input listener', e);
+    // this.$root привязан через bind
+    console.log(this.$root);
+    console.log('formula: input listener', e.target.textContent.trim());
+  }
+  onClick() {
+    console.log('Click');
   }
 }
