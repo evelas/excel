@@ -7,7 +7,7 @@ export class DomListener {
     // Class ExcelComponent наследуется от DomListener
     // поэтому мы имеем доступ к $root
     if (!$root) {
-      throw new Error(`No $root provided for DomListener`);
+      throw new Error(`>No $root provided for DomListener<`);
     }
     this.$root = $root;
     this.listeners = listeners;

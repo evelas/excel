@@ -21,13 +21,15 @@ export class Excel {
     // c forEach мы получали классы, а нам нужны инстансы
     this.components = this.components.map((Component) => {
       const $el = $.create('div', Component.className);
+      // or
       // const $el = document.createElement('div');
       // $el.classList.add(Component.className);
+
       const component = new Component($el);
       // DEBUG
-      // if (component.name) {
-      //   window['debug' + component.name] = component;
-      // }
+      if (component.name) {
+        window['debug' + component.name] = component;
+      }
       $el.html(component.toHTML());
       // $el.innerHTML = component.toHTML();
       $root.append($el);
