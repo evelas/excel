@@ -18,6 +18,7 @@ const jsLoaders = () => {
         //иногда можно вынести presets в отдельный файл babelrc
         //как и browserslist
         presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties'],
       },
     },
   ];
