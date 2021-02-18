@@ -30,7 +30,7 @@ function generateCells(colsCount) {
 function createRow(rowIndex, content) {
   const rowResize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
   return `
-    <div class="row">
+    <div class="row" data-type="resizable">
       <div class="row-info">
        ${rowIndex}
        ${rowResize}
