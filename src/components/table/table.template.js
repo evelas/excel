@@ -35,23 +35,23 @@ function createRow(rowIndex, content) {
        ${rowIndex}
        ${rowResize}
       </div>
-      <div class="row-data" data-type="resizable">${content}</div>
+      <div class="row-data">${content}</div>
     </div>
   `;
 }
 
-function toColumn(col) {
+function toColumn(col, index) {
   return `
-    <div class="column" data-type="resizable">
+    <div class="column" data-type="resizable" data-col="${index}">
       ${col}
       <div class="col-resize" data-resize="col"></div>
     </div>
   `;
 }
 
-function toCell(content) {
+function toCell(_, index) {
   return `
-    <div class="cell" contenteditable>${content}</div>
+    <div class="cell" data-col="${index}" contenteditable></div>
   `;
 }
 

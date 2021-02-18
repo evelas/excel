@@ -41,6 +41,11 @@ class Dom {
     }
     return this;
   }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
   closest(selector) {
     // оборачиваем в $ чтобы был у элемента тот же
     // самый функционал что и инстантса класса dom
