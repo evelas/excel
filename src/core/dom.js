@@ -41,6 +41,15 @@ class Dom {
     }
     return this;
   }
+  closest(selector) {
+    // оборачиваем в $ чтобы был у элемента тот же
+    // самый функционал что и инстантса класса dom
+    return $(this.$el.closest(selector));
+  }
+
+  getCoordsNode() {
+    return this.$el.getBoundingClientRect();
+  }
 }
 export function $(selector) {
   return new Dom(selector);
