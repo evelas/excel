@@ -10,6 +10,7 @@
     "require-jsdoc": "off",
     "operator-linebreak": "off",
     "max-len": "off",
+    "no-debugger": "off",
 
     // Mandatory use of consistent spaces in braces
     "object-curly-spacing": [
