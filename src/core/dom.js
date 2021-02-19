@@ -41,6 +41,31 @@ class Dom {
     }
     return this;
   }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
+  closest(selector) {
+    // оборачиваем в $ чтобы был у элемента тот же
+    // самый функционал что и инстантса класса dom
+    return $(this.$el.closest(selector));
+  }
+
+  getCoordsNode() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach((key) => {
+      // style[key]
+      return (this.$el.style[key] = styles[key]);
+    });
+  }
 }
 export function $(selector) {
   return new Dom(selector);

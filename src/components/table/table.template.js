@@ -28,23 +28,30 @@ function generateCells(colsCount) {
 }
 
 function createRow(rowIndex, content) {
+  const rowResize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
   return `
-    <div class="row">
-      <div class="row-info">${rowIndex}</div>
+    <div class="row" data-type="resizable">
+      <div class="row-info">
+       ${rowIndex}
+       ${rowResize}
+      </div>
       <div class="row-data">${content}</div>
     </div>
   `;
 }
 
-function toColumn(col) {
+function toColumn(col, index) {
   return `
-    <div class="column">${col}</div>
+    <div class="column" data-type="resizable" data-col="${index}">
+      ${col}
+      <div class="col-resize" data-resize="col"></div>
+    </div>
   `;
 }
 
-function toCell(content) {
+function toCell(_, index) {
   return `
-    <div class="cell" contenteditable>${content}</div>
+    <div class="cell" data-col="${index}" contenteditable></div>
   `;
 }
 
