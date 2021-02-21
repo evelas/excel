@@ -60,6 +60,29 @@ class Dom {
     return this.$el.querySelectorAll(selector);
   }
 
+  find(selector) {
+    return $(this.$el.querySelector(selector));
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
+
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: parseInt(parsed[0]),
+        col: parseInt(parsed[1]),
+      };
+    }
+    return this.data.id;
+  }
+
   css(styles = {}) {
     Object.keys(styles).forEach((key) => {
       // style[key]
