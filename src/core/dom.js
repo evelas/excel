@@ -64,6 +64,11 @@ class Dom {
     return $(this.$el.querySelector(selector));
   }
 
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+
   addClass(className) {
     this.$el.classList.add(className);
   }
