@@ -8,9 +8,11 @@ import { $ } from '@core/dom';
 export class Table extends ExcelComponent {
   static className = 'excel__table';
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
+      name: 'Table',
       listeners: ['mousedown', 'keydown'],
+      ...options,
     });
   }
 
@@ -29,6 +31,10 @@ export class Table extends ExcelComponent {
     super.init();
     const $cell = this.$root.find('[data-id="1:1"]');
     this.selection.select($cell);
+
+    this.emitter.subscribe('Formula:input', (text) => {
+      this.selection.current.text(text);
+    });
   }
 
   onMousedown(event) {
@@ -58,3 +64,16 @@ export class Table extends ExcelComponent {
     }
   }
 }
+
+// const emitter = new Emitter();
+
+// emitter.subscribe('Это событие', (data, moreData) => console.log('Событие: ', data, moreData));
+// emitter.subscribe('Это событие2', (data) => console.log('Событие2: ', data));
+
+// emitter.emit('Это событие', 'какие-то данные', 'eee');
+// emitter.emit('Это событие', 'какие-то данные+++', 'eee+++');
+// emitter.emit('Это событие2', 'какие-то данные2');
+// emitter.emit('Это событие другое и мы на него не подписались', 'какие-то данные которые не дошли');
+// setTimeout(() => {
+//   emitter.emit('Это событие', 'какие-то данные после 2 сек', 'and one');
+// }, 2000);
