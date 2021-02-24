@@ -3,12 +3,13 @@ import { ExcelComponent } from '@core/ExcelComponent';
 export class Toolbar extends ExcelComponent {
   static className = 'excel__toolbar';
 
-  constructor($root) {
+  constructor($root, options) {
     // Здесь, вызывается метод конструктора
     // родительского класса ExcelComponent
     super($root, {
       name: 'Toolbar',
       listeners: ['click'],
+      ...options,
     });
   }
 

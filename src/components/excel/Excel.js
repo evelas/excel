@@ -1,5 +1,5 @@
 import { $ } from '@core/dom';
-
+import { Emitter } from '@core/Emitter';
 // Корневой компонент для страницы excel
 // $ - dom node
 export class Excel {
@@ -9,9 +9,13 @@ export class Excel {
     // поэтому el создаем с помощью нашей библы
     this.$el = $(selector);
     this.components = options.components || [];
+    this.emitter = new Emitter();
   }
   // getRoot - возвращает корневую ноду
   getRoot() {
+    const componentOptions = {
+      emitter: this.emitter,
+    };
     const $root = $.create('div', 'excel');
     // Component - в методе foreach мы получаем доступ до
     // каждого Класса (значит тут мы сможем создавать его instance)
@@ -25,11 +29,11 @@ export class Excel {
       // const $el = document.createElement('div');
       // $el.classList.add(Component.className);
 
-      const component = new Component($el);
+      const component = new Component($el, componentOptions);
       // DEBUG
-      if (component.name) {
-        window['debug' + component.name] = component;
-      }
+      // if (component.name) {
+      //   window['debug' + component.name] = component;
+      // }
       $el.html(component.toHTML());
       // $el.innerHTML = component.toHTML();
       $root.append($el);
@@ -44,6 +48,10 @@ export class Excel {
     this.$el.append(this.getRoot());
     // у каждого компонента вызываем init
     this.components.forEach((component) => component.init());
+  }
+
+  destroy() {
+    this.components.forEach((component) => component.destroy());
   }
 }
 // $el - как StyleGuide. Так понятее,

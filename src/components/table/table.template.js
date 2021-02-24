@@ -13,8 +13,8 @@ export function createTable(rowsCount = 10) {
   // формируем ряд с шапкой
   rows.push(createRow('', cols));
   // формируем остальные ряды
-  for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(i + 1, generateCells(colsCount)));
+  for (let row = 0; row < rowsCount; row++) {
+    rows.push(createRow(row + 1, generateCells(colsCount, row)));
   }
   return rows.join('');
 }
@@ -23,8 +23,12 @@ function generateColumns(colsCount) {
   return new Array(colsCount).fill('').map(toChar).map(toColumn).join('');
 }
 
-function generateCells(colsCount) {
-  return new Array(colsCount).fill('').map(toCell).join('');
+function generateCells(colsCount, row) {
+  return new Array(colsCount).fill('').map(toCell(row)).join('');
+  // return new Array(colsCount)
+  //   .fill('')
+  //   .map((_, col) => toCell(row, col))
+  //   .join('');
 }
 
 function createRow(rowIndex, content) {
@@ -49,11 +53,23 @@ function toColumn(col, index) {
   `;
 }
 
-function toCell(_, index) {
-  return `
-    <div class="cell" data-col="${index}" contenteditable></div>
-  `;
+function toCell(row) {
+  return function (_, col) {
+    return `
+      <div class="cell"
+          contenteditable
+          data-col="${col}"
+          data-id="${row + 1}:${col + 1}" 
+          data-type="cell"></div>
+    `;
+  };
 }
+
+// function toCell(row, col) {
+//   return `
+//       <div class="cell" contenteditable data-col="${col}" data-row="${row}" data-type="cell"></div>
+//     `;
+// }
 
 // _ - placeholder, нам нужно его обозначить
 // чтобы получить доступ до второго
