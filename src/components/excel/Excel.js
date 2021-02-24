@@ -31,9 +31,9 @@ export class Excel {
 
       const component = new Component($el, componentOptions);
       // DEBUG
-      if (component.name) {
-        window['debug' + component.name] = component;
-      }
+      // if (component.name) {
+      //   window['debug' + component.name] = component;
+      // }
       $el.html(component.toHTML());
       // $el.innerHTML = component.toHTML();
       $root.append($el);
@@ -48,6 +48,10 @@ export class Excel {
     this.$el.append(this.getRoot());
     // у каждого компонента вызываем init
     this.components.forEach((component) => component.init());
+  }
+
+  destroy() {
+    this.components.forEach((component) => component.destroy());
   }
 }
 // $el - как StyleGuide. Так понятее,
