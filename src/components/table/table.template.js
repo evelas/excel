@@ -6,35 +6,67 @@ const CODES = {
   Z: 90,
 };
 
-export function createTable(rowsCount = 10) {
+const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 31;
+
+export function createTable(rowsCount = 10, state = {}) {
+  console.log(state);
   const colsCount = CODES.Z - CODES.A + 1;
   const rows = [];
-  const cols = generateColumns(colsCount);
+  const cols = generateColumns(colsCount, state.colState);
   // формируем ряд с шапкой
-  rows.push(createRow('', cols));
+  rows.push(createRow('', cols, {}));
   // формируем остальные ряды
   for (let row = 0; row < rowsCount; row++) {
-    rows.push(createRow(row + 1, generateCells(colsCount, row)));
+    rows.push(createRow(row + 1, generateCells(colsCount, row, state.colState), state.rowState));
   }
   return rows.join('');
 }
 
-function generateColumns(colsCount) {
-  return new Array(colsCount).fill('').map(toChar).map(toColumn).join('');
+function generateColumns(colsCount, state) {
+  return (
+    new Array(colsCount)
+      .fill('')
+      .map(toChar)
+      .map(widthFrom(state))
+      .map(toColumn)
+      // .map((col, index) => {
+      //   const width = getWidth(state, index);
+      //   return toColumn(col, index, width);
+      // })
+      .join('')
+  );
 }
 
-function generateCells(colsCount, row) {
-  return new Array(colsCount).fill('').map(toCell(row)).join('');
-  // return new Array(colsCount)
-  //   .fill('')
-  //   .map((_, col) => toCell(row, col))
-  //   .join('');
+function getWidth(state, indexCol) {
+  return (state[indexCol] || DEFAULT_WIDTH) + 'px';
 }
 
-function createRow(rowIndex, content) {
+function getHeight(state, indexRow) {
+  return (state[indexRow] || DEFAULT_HEIGHT) + 'px';
+}
+
+function widthFrom(state) {
+  return function (col, index) {
+    const width = getWidth(state, index);
+    return { col, index, width };
+  };
+}
+
+function generateCells(colsCount, row, state) {
+  return new Array(colsCount).fill('').map(toCell(row, state)).join('');
+}
+
+function createRow(rowIndex, content, state) {
   const rowResize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
+  const height = getHeight(state, rowIndex);
   return `
-    <div class="row" data-type="resizable">
+    <div 
+      class="row"
+      data-type="resizable"
+      data-row="${rowIndex}"
+      style="height: ${height}"
+    >
       <div class="row-info">
        ${rowIndex}
        ${rowResize}
@@ -44,32 +76,36 @@ function createRow(rowIndex, content) {
   `;
 }
 
-function toColumn(col, index) {
+function toColumn({ col, index, width }) {
   return `
-    <div class="column" data-type="resizable" data-col="${index}">
+    <div 
+      class="column"
+      data-type="resizable"
+      data-col="${index}"
+      style="width: ${width}"
+    >
       ${col}
       <div class="col-resize" data-resize="col"></div>
     </div>
   `;
 }
 
-function toCell(row) {
+function toCell(row, state) {
   return function (_, col) {
+    const width = getWidth(state, col);
     return `
-      <div class="cell"
-          contenteditable
-          data-col="${col}"
-          data-id="${row}:${col}" 
-          data-type="cell"></div>
+      <div 
+        class="cell"
+        contenteditable
+        data-col="${col}"
+        data-id="${row}:${col}" 
+        data-type="cell"
+        style="width: ${width}"
+      >
+      </div>
     `;
   };
 }
-
-// function toCell(row, col) {
-//   return `
-//       <div class="cell" contenteditable data-col="${col}" data-row="${row}" data-type="cell"></div>
-//     `;
-// }
 
 // _ - placeholder, нам нужно его обозначить
 // чтобы получить доступ до второго

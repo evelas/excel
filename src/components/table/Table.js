@@ -18,7 +18,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(25);
+    return createTable(25, this.store.getState());
   }
 
   prepare() {
@@ -31,7 +31,7 @@ export class Table extends ExcelComponent {
     // вызывается init связанный с domlisteners
     super.init();
 
-    this.selectCell(this.$root.find('[data-id="1:1"]'));
+    this.selectCell(this.$root.find('[data-id="0:0"]'));
 
     this.$on('Formula:input', (text) => {
       this.selection.current.text(text);
@@ -48,7 +48,7 @@ export class Table extends ExcelComponent {
   async resizeTable(event) {
     try {
       const data = await resizeHandler(this.$root, event);
-
+      console.log(data);
       this.$dispatch(actions.tableResize(data));
     } catch (e) {
       console.warn('Resize error', e.message);
@@ -67,7 +67,6 @@ export class Table extends ExcelComponent {
         this.selection.selectGroup($cells);
       } else {
         this.selectCell($target);
-        this.$dispatch({ type: 'TEST' });
       }
     }
   }

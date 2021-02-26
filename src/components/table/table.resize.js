@@ -44,7 +44,9 @@ export function resizeHandler($root, event) {
       // из промиса для сохранение ресайза
       resolve({
         value,
-        id: type === 'col' ? $parent.data.col : null,
+        type,
+        // id: type === 'col' ? $parent.data.col : $parent.data.row,
+        id: $parent.data[type],
       });
     };
   });

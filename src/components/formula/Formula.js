@@ -9,7 +9,6 @@ export class Formula extends ExcelComponent {
     // родительского класса ExcelComponent
     // в options первым мы реализовали emitter
     // в Excel js передаем в каждый компонент $root, options
-    console.log(options);
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
