@@ -10,11 +10,14 @@ export class Excel {
     this.$el = $(selector);
     this.components = options.components || [];
     this.emitter = new Emitter();
+    console.log(options);
+    this.store = options.store;
   }
   // getRoot - возвращает корневую ноду
   getRoot() {
     const componentOptions = {
       emitter: this.emitter,
+      store: this.store,
     };
     const $root = $.create('div', 'excel');
     // Component - в методе foreach мы получаем доступ до

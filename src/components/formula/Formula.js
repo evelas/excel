@@ -32,9 +32,7 @@ export class Formula extends ExcelComponent {
       console.log($cell);
       this.$formula.text($cell.text());
     });
-    this.$on('Table:mousedown', ($cell) => {
-      this.$formula.text($cell.text());
-    });
+
     this.$on('Table:input', ($cell) => {
       this.$formula.text($cell.text());
     });

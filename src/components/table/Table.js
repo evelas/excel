@@ -38,6 +38,10 @@ export class Table extends ExcelComponent {
     this.$on('Formula:keydown', () => {
       this.selection.current.focus();
     });
+
+    this.$subscribe((state) => {
+      console.log('State-test-table', state);
+    });
   }
 
   onMousedown(event) {
@@ -51,8 +55,8 @@ export class Table extends ExcelComponent {
         );
         this.selection.selectGroup($cells);
       } else {
-        this.selection.select($target);
-        this.$emit('Table:mousedown', $target);
+        this.selectCell($target);
+        this.$dispatch({ type: 'TEST' });
       }
     }
   }
