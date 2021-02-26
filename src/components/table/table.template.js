@@ -59,7 +59,7 @@ function toCell(row) {
       <div class="cell"
           contenteditable
           data-col="${col}"
-          data-id="${row + 1}:${col + 1}" 
+          data-id="${row}:${col}" 
           data-type="cell"></div>
     `;
   };
