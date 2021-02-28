@@ -35,14 +35,11 @@ export class Table extends ExcelComponent {
 
     this.$on('Formula:input', (text) => {
       this.selection.current.text(text);
+      this.updateTextInStore(text);
     });
     this.$on('Formula:keydown', () => {
       this.selection.current.focus();
     });
-
-    // this.$subscribe((state) => {
-    //   console.log('State-test-table', state);
-    // });
   }
 
   async resizeTable(event) {
@@ -72,7 +69,6 @@ export class Table extends ExcelComponent {
   }
 
   onKeydown(event) {
-    console.log(this);
     const keys = ['Tab', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'];
     const id = this.selection.current.id(true);
     const { key } = event;
@@ -84,12 +80,22 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.$emit('Table:input', $(event.target));
+    // this.$emit('Table:input', $(event.target));
+    this.updateTextInStore($(event.target).text());
   }
 
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit('Table:select', $cell);
+  }
+
+  updateTextInStore(value) {
+    this.$dispatch(
+      actions.changeText({
+        id: this.selection.current.id(),
+        value,
+      }),
+    );
   }
 }
 

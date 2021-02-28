@@ -1,9 +1,10 @@
 // pure Functions
-import { TABLE_RESIZE } from './actions/types';
+import { CHANGE_TEXT, TABLE_RESIZE } from './actions/types';
 
 export function rootReducer(state, action) {
   let prevState;
   let field;
+  // console.log('Action:', action);
   switch (action.type) {
     case TABLE_RESIZE:
       field = action.data.type === 'col' ? 'colState' : 'rowState';
@@ -11,6 +12,10 @@ export function rootReducer(state, action) {
       prevState[action.data.id] = action.data.value;
       // динамическое значение field обернем []
       return { ...state, [field]: prevState };
+    case CHANGE_TEXT:
+      prevState = state['dataState'] || {};
+      prevState[action.data.id] = action.data.value;
+      return { ...state, currentText: action.data.value, dataState: prevState };
     default:
       return state;
   }

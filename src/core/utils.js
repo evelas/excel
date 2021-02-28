@@ -22,3 +22,13 @@ export function storage(key, data = null) {
   }
   localStorage.setItem(key, JSON.stringify(data));
 }
+
+export function isEqual(a, b) {
+  if (typeof a === 'object' && typeof b === 'object') {
+    // не deep equal
+    // это будет работать если у нас не сложная стуртура данных
+    // например нету в объекте new Data()
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+  return a === b;
+}

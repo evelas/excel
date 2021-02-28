@@ -10,7 +10,6 @@ const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 31;
 
 export function createTable(rowsCount = 10, state = {}) {
-  console.log(state);
   const colsCount = CODES.Z - CODES.A + 1;
   const rows = [];
   const cols = generateColumns(colsCount, state.colState);
@@ -18,7 +17,7 @@ export function createTable(rowsCount = 10, state = {}) {
   rows.push(createRow('', cols, {}));
   // формируем остальные ряды
   for (let row = 0; row < rowsCount; row++) {
-    rows.push(createRow(row + 1, generateCells(colsCount, row, state.colState), state.rowState));
+    rows.push(createRow(row + 1, generateCells(colsCount, row, state), state.rowState));
   }
   return rows.join('');
 }
@@ -92,16 +91,19 @@ function toColumn({ col, index, width }) {
 
 function toCell(row, state) {
   return function (_, col) {
-    const width = getWidth(state, col);
+    const width = getWidth(state.colState, col);
+    const id = `${row}:${col}`;
+    const data = state.dataState[id];
     return `
       <div 
         class="cell"
         contenteditable
         data-col="${col}"
-        data-id="${row}:${col}" 
+        data-id="${id}" 
         data-type="cell"
         style="width: ${width}"
       >
+        ${data || ''} 
       </div>
     `;
   };

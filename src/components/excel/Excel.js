@@ -1,5 +1,7 @@
 import { $ } from '@core/dom';
 import { Emitter } from '@core/Emitter';
+import { StoreSubscriber } from '../../core/StoreSubscriber';
+
 // Корневой компонент для страницы excel
 // $ - dom node
 export class Excel {
@@ -11,6 +13,7 @@ export class Excel {
     this.components = options.components || [];
     this.emitter = new Emitter();
     this.store = options.store;
+    this.subscriber = new StoreSubscriber(this.store);
   }
   // getRoot - возвращает корневую ноду
   getRoot() {
@@ -48,11 +51,14 @@ export class Excel {
     // afterbegin afterend beforebegin beforeend
     // this.$el.insertAdjacentHTML('afterbegin', `<h1>test</h1>`);
     this.$el.append(this.getRoot());
+
+    this.subscriber.subscribeComponents(this.components);
     // у каждого компонента вызываем init
     this.components.forEach((component) => component.init());
   }
 
   destroy() {
+    this.subscriber.unsubscribeFromStore();
     this.components.forEach((component) => component.destroy());
   }
 }
