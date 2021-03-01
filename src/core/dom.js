@@ -108,6 +108,14 @@ class Dom {
       return (this.$el.style[key] = styles[key]);
     });
   }
+
+  getStyles(styles = []) {
+    console.log(styles);
+    return styles.reduce((sum, currentStyle) => {
+      sum[currentStyle] = this.$el.style[currentStyle];
+      return sum;
+    }, {});
+  }
 }
 export function $(selector) {
   return new Dom(selector);

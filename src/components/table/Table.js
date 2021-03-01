@@ -5,6 +5,7 @@ import { shouldResize, isCell, matrix, nextSelector } from './table.helpers';
 import { TableSelection } from './TableSelection';
 import { $ } from '@core/dom';
 import * as actions from '../../redux/actions/actions';
+import { defaultStyles } from '../../constans';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -18,7 +19,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(25, this.store.getState());
+    return createTable(20, this.store.getState());
   }
 
   prepare() {
@@ -39,6 +40,11 @@ export class Table extends ExcelComponent {
     });
     this.$on('Formula:keydown', () => {
       this.selection.current.focus();
+    });
+
+    this.$on('Toolbar:applyStyle', (style) => {
+      console.log(style);
+      this.selection.applyStyle(style);
     });
   }
 
@@ -87,6 +93,9 @@ export class Table extends ExcelComponent {
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit('Table:select', $cell);
+    console.log(defaultStyles);
+    console.log(Object.keys(defaultStyles));
+    // console.log($cell.getStyles(Object.keys(defaultStyles)));
   }
 
   updateTextInStore(value) {
