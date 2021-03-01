@@ -43,7 +43,6 @@ export class Table extends ExcelComponent {
     });
 
     this.$on('Toolbar:applyStyle', (style) => {
-      console.log(style);
       this.selection.applyStyle(style);
     });
   }
@@ -51,7 +50,6 @@ export class Table extends ExcelComponent {
   async resizeTable(event) {
     try {
       const data = await resizeHandler(this.$root, event);
-      console.log(data);
       this.$dispatch(actions.tableResize(data));
     } catch (e) {
       console.warn('Resize error', e.message);
@@ -93,9 +91,12 @@ export class Table extends ExcelComponent {
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit('Table:select', $cell);
-    console.log(defaultStyles);
-    console.log(Object.keys(defaultStyles));
-    // console.log($cell.getStyles(Object.keys(defaultStyles)));
+    const styles = $cell.getStyles(Object.keys(defaultStyles));
+    // диспатчим новый объект стилей
+    // для реагирования на измнения store
+    // в классе toolbar добавляем subscribe в конструктор
+    console.log($cell.getStyles(Object.keys(defaultStyles)));
+    this.$dispatch(actions.changeStyles(styles));
   }
 
   updateTextInStore(value) {

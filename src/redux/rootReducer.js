@@ -1,5 +1,5 @@
 // pure Functions
-import { CHANGE_TEXT, TABLE_RESIZE } from './actions/types';
+import { CHANGE_TEXT, CHANGE_TOOLBAR_STYLES, TABLE_RESIZE } from './actions/types';
 
 export function rootReducer(state, action) {
   let field;
@@ -12,6 +12,8 @@ export function rootReducer(state, action) {
     case CHANGE_TEXT:
       field = 'dataState';
       return { ...state, currentText: action.data.value, field: value(state, field, action) };
+    case CHANGE_TOOLBAR_STYLES:
+      return { ...state, currentStyles: action.data };
     default:
       return state;
   }

@@ -17,7 +17,6 @@ export class TableSelection {
   selectGroup($group = []) {
     this.clear();
     this.group = $group;
-    console.log(this.group);
     this.group.forEach(($el) => $el.addClass(TableSelection.className));
   }
 
