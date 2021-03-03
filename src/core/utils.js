@@ -43,3 +43,18 @@ export function stylesToString(styles = {}) {
     .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
     .join(';');
 }
+
+// функция декоратор
+export function debounce(fn, wait) {
+  let timeout;
+  return function (...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      // fn(...args)
+      // eslint-disable-next-line
+      fn.apply(this, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
