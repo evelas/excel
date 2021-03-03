@@ -25,7 +25,6 @@ export class StoreSubscriber {
             // обновляем компонент
             // если в конструктур передали что-то в массив subscribe
             if (component.isWatching(key)) {
-              console.log(component);
               const changes = {
                 [key]: state[key],
               };

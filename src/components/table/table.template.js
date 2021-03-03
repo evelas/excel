@@ -2,7 +2,7 @@
 // String.fromCharCode(65) = 'A'
 
 import { defaultStyles } from '../../constans';
-import { camelToDashCase } from '../../core/utils';
+import { stylesToString } from '../../core/utils';
 
 const CODES = {
   A: 65,
@@ -97,9 +97,13 @@ function toCell(row, state) {
     const width = getWidth(state.colState, col);
     const id = `${row}:${col}`;
     const data = state.dataState[id];
-    const styles = Object.keys(defaultStyles)
-      .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
-      .join(';');
+    // const styles = stylesToString(state.stylesState[id])
+    //   ? stylesToString(state.stylesState[id])
+    //   : stylesToString(defaultStyles);
+    const styles = stylesToString({
+      ...defaultStyles,
+      ...state.stylesState[id],
+    });
     return `
       <div 
         class="cell"

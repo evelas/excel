@@ -110,7 +110,6 @@ class Dom {
   }
 
   getStyles(styles = []) {
-    console.log(styles);
     return styles.reduce((sum, currentStyle) => {
       sum[currentStyle] = this.$el.style[currentStyle];
       return sum;

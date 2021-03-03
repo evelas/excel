@@ -44,6 +44,12 @@ export class Table extends ExcelComponent {
 
     this.$on('Toolbar:applyStyle', (style) => {
       this.selection.applyStyle(style);
+      this.$dispatch(
+        actions.applyStyle({
+          value: style,
+          ids: this.selection.selectedIds,
+        }),
+      );
     });
   }
 
@@ -92,10 +98,11 @@ export class Table extends ExcelComponent {
     this.selection.select($cell);
     this.$emit('Table:select', $cell);
     const styles = $cell.getStyles(Object.keys(defaultStyles));
+
+    console.log(styles);
     // диспатчим новый объект стилей
     // для реагирования на измнения store
     // в классе toolbar добавляем subscribe в конструктор
-    console.log($cell.getStyles(Object.keys(defaultStyles)));
     this.$dispatch(actions.changeStyles(styles));
   }
 

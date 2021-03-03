@@ -2,4 +2,6 @@ export const TABLE_RESIZE = 'TABLE_RESIZE';
 export const CHANGE_TEXT = 'CHANGE_TEXT';
 
 export const CHANGE_TOOLBAR_STYLES = 'CHANGE_TOOLBAR_STYLES';
-export const APPLY_STYLES = 'APPLY_STYLES';
+export const APPLY_STYLE = 'APPLY_STYLE';
+
+export const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME';

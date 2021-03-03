@@ -8,17 +8,17 @@ export function createToolbar(state) {
       },
     },
     {
-      icon: 'format_align_right',
-      active: state.textAlign === 'right',
-      value: {
-        textAlign: 'right',
-      },
-    },
-    {
       icon: 'format_align_center',
       active: state.textAlign === 'center',
       value: {
         textAlign: 'center',
+      },
+    },
+    {
+      icon: 'format_align_right',
+      active: state.textAlign === 'right',
+      value: {
+        textAlign: 'right',
       },
     },
     {
@@ -49,8 +49,8 @@ export function createToolbar(state) {
 
 function toButton(button) {
   const meta = `
-  data-type="button"
-  data-value='${JSON.stringify(button.value)}'
+    data-type="button"
+    data-value='${JSON.stringify(button.value)}'
   `;
   return `
       <div class="button ${button.active ? 'active' : ''}" ${meta}>
