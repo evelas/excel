@@ -6,6 +6,7 @@ import { TableSelection } from './TableSelection';
 import { $ } from '@core/dom';
 import * as actions from '../../redux/actions/actions';
 import { defaultStyles } from '../../constans';
+import { parse } from '../../core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -35,7 +36,8 @@ export class Table extends ExcelComponent {
     this.selectCell(this.$root.find('[data-id="0:0"]'));
 
     this.$on('Formula:input', (text) => {
-      this.selection.current.text(text);
+      this.selection.current.attr('data-value', text).text(parse(text));
+      // this.selection.current.text(text);
       this.updateTextInStore(text);
     });
     this.$on('Formula:keydown', () => {

@@ -2,6 +2,7 @@
 // String.fromCharCode(65) = 'A'
 
 import { defaultStyles } from '../../constans';
+import { parse } from '../../core/parse';
 import { stylesToString } from '../../core/utils';
 
 const CODES = {
@@ -111,9 +112,10 @@ function toCell(row, state) {
         data-col="${col}"
         data-id="${id}" 
         data-type="cell"
+        data-value="${data || ''}"
         style="${styles}; width: ${width}"
       >
-        ${data || ''} 
+        ${parse(data) || ''} 
       </div>
     `;
   };
