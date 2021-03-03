@@ -35,7 +35,6 @@ export function nextSelector(key, { col, row }) {
       break;
     case 'ArrowUp':
       row = row - 1 < MIN_VALUE ? MIN_VALUE : row - 1;
-      console.log(row);
       break;
     case 'ArrowLeft':
       col = col - 1 < MIN_VALUE ? MIN_VALUE : col - 1;

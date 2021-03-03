@@ -9,10 +9,10 @@ export class Formula extends ExcelComponent {
     // родительского класса ExcelComponent
     // в options первым мы реализовали emitter
     // в Excel js передаем в каждый компонент $root, options
-    console.log(options);
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...options,
     });
   }
@@ -29,15 +29,13 @@ export class Formula extends ExcelComponent {
     this.$formula = this.$root.find('#formula');
 
     this.$on('Table:select', ($cell) => {
-      console.log($cell);
-      this.$formula.text($cell.text());
+      // this.$formula.text($cell.text());
+      this.$formula.text($cell.data.value || $cell.text());
     });
-    this.$on('Table:mousedown', ($cell) => {
-      this.$formula.text($cell.text());
-    });
-    this.$on('Table:input', ($cell) => {
-      this.$formula.text($cell.text());
-    });
+  }
+
+  storeChanged({ currentText }) {
+    this.$formula.text(currentText);
   }
 
   onInput(event) {

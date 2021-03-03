@@ -19,7 +19,7 @@ class Dom {
   }
 
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this.$el.textContent = text;
       return this;
     }
@@ -56,6 +56,14 @@ class Dom {
 
   get data() {
     return this.$el.dataset;
+  }
+
+  attr(name, value) {
+    if (value !== 'undefined') {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+    return this.$el.getAttribute(name);
   }
 
   closest(selector) {
@@ -107,6 +115,13 @@ class Dom {
       // style[key]
       return (this.$el.style[key] = styles[key]);
     });
+  }
+
+  getStyles(styles = []) {
+    return styles.reduce((sum, currentStyle) => {
+      sum[currentStyle] = this.$el.style[currentStyle];
+      return sum;
+    }, {});
   }
 }
 export function $(selector) {

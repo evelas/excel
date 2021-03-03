@@ -4,6 +4,9 @@ import { resizeHandler } from './table.resize';
 import { shouldResize, isCell, matrix, nextSelector } from './table.helpers';
 import { TableSelection } from './TableSelection';
 import { $ } from '@core/dom';
+import * as actions from '../../redux/actions/actions';
+import { defaultStyles } from '../../constans';
+import { parse } from '../../core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -17,7 +20,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(25);
+    return createTable(20, this.store.getState());
   }
 
   prepare() {
@@ -30,19 +33,40 @@ export class Table extends ExcelComponent {
     // вызывается init связанный с domlisteners
     super.init();
 
-    this.selectCell(this.$root.find('[data-id="1:1"]'));
+    this.selectCell(this.$root.find('[data-id="0:0"]'));
 
     this.$on('Formula:input', (text) => {
-      this.selection.current.text(text);
+      this.selection.current.attr('data-value', text).text(parse(text));
+      // this.selection.current.text(text);
+      this.updateTextInStore(text);
     });
     this.$on('Formula:keydown', () => {
       this.selection.current.focus();
     });
+
+    this.$on('Toolbar:applyStyle', (style) => {
+      this.selection.applyStyle(style);
+      this.$dispatch(
+        actions.applyStyle({
+          value: style,
+          ids: this.selection.selectedIds,
+        }),
+      );
+    });
+  }
+
+  async resizeTable(event) {
+    try {
+      const data = await resizeHandler(this.$root, event);
+      this.$dispatch(actions.tableResize(data));
+    } catch (e) {
+      console.warn('Resize error', e.message);
+    }
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(this.$root, event);
+      this.resizeTable(event);
     } else if (isCell) {
       const $target = $(event.target);
       if (event.shiftKey) {
@@ -51,14 +75,12 @@ export class Table extends ExcelComponent {
         );
         this.selection.selectGroup($cells);
       } else {
-        this.selection.select($target);
-        this.$emit('Table:mousedown', $target);
+        this.selectCell($target);
       }
     }
   }
 
   onKeydown(event) {
-    console.log(this);
     const keys = ['Tab', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'];
     const id = this.selection.current.id(true);
     const { key } = event;
@@ -70,12 +92,29 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.$emit('Table:input', $(event.target));
+    // this.$emit('Table:input', $(event.target));
+    this.updateTextInStore($(event.target).text());
   }
 
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit('Table:select', $cell);
+    const styles = $cell.getStyles(Object.keys(defaultStyles));
+
+    console.log(styles);
+    // диспатчим новый объект стилей
+    // для реагирования на измнения store
+    // в классе toolbar добавляем subscribe в конструктор
+    this.$dispatch(actions.changeStyles(styles));
+  }
+
+  updateTextInStore(value) {
+    this.$dispatch(
+      actions.changeText({
+        id: this.selection.current.id(),
+        value,
+      }),
+    );
   }
 }
 
