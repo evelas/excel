@@ -5,6 +5,7 @@ import {
   CHANGE_TEXT,
   CHANGE_TOOLBAR_STYLES,
   TABLE_RESIZE,
+  UPDATE_DATE,
 } from './actions/types';
 
 export function rootReducer(state, action) {
@@ -44,13 +45,18 @@ export function rootReducer(state, action) {
         ...state,
         [field]: action.data.name,
       };
+    case UPDATE_DATE:
+      return {
+        ...state,
+        openedDate: new Date().toJSON(),
+      };
     default:
       return state;
   }
 }
 
 function value(state, field, action) {
-  const val = state[field] || {};
+  const val = { ...state[field] } || {};
   val[action.data.id] = action.data.value;
   return val;
 }

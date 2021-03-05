@@ -25,7 +25,8 @@ export class DomListener {
     this.listeners.forEach((listener) => {
       const method = getMethodName(listener);
       if (!this[method]) {
-        throw new Error(`>Method ${method} is not implemented in ${this.name} Component<`);
+        throw new Error(`>Method ${method} is not
+         implemented in ${this.name} Component<`);
       }
       // the same console.log, но в []
       // мы можем положить переменную

@@ -40,14 +40,14 @@ export function camelToDashCase(str) {
 // toInlineStyle
 export function stylesToString(styles = {}) {
   return Object.keys(styles)
-    .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
-    .join(';');
+      .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
+      .join(';');
 }
 
 // функция декоратор
 export function debounce(fn, wait) {
   let timeout;
-  return function (...args) {
+  return function(...args) {
     const later = () => {
       clearTimeout(timeout);
       // fn(...args)
@@ -57,4 +57,8 @@ export function debounce(fn, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
+}
+
+export function preventDefault(event) {
+  event.preventDefault();
 }

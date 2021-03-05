@@ -47,10 +47,10 @@ export class Table extends ExcelComponent {
     this.$on('Toolbar:applyStyle', (style) => {
       this.selection.applyStyle(style);
       this.$dispatch(
-        actions.applyStyle({
-          value: style,
-          ids: this.selection.selectedIds,
-        }),
+          actions.applyStyle({
+            value: style,
+            ids: this.selection.selectedIds,
+          }),
       );
     });
   }
@@ -81,7 +81,14 @@ export class Table extends ExcelComponent {
   }
 
   onKeydown(event) {
-    const keys = ['Tab', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'];
+    const keys = [
+      'Tab',
+      'Enter',
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowUp',
+      'ArrowDown',
+    ];
     const id = this.selection.current.id(true);
     const { key } = event;
     if (keys.includes(key)) {
@@ -110,10 +117,10 @@ export class Table extends ExcelComponent {
 
   updateTextInStore(value) {
     this.$dispatch(
-      actions.changeText({
-        id: this.selection.current.id(),
-        value,
-      }),
+        actions.changeText({
+          id: this.selection.current.id(),
+          value,
+        }),
     );
   }
 }
@@ -129,7 +136,8 @@ export class Table extends ExcelComponent {
 // emitter.emit('Это событие', 'какие-то данные', 'eee');
 // emitter.emit('Это событие', 'какие-то данные+++', 'eee+++');
 // emitter.emit('Это событие2', 'какие-то данные2');
-// emitter.emit('Это событие другое и мы на него не подписались', 'какие-то данные которые не дошли');
+// emitter.emit('Это событие другое и мы на него не подписались',
+// 'какие-то данные которые не дошли');
 // setTimeout(() => {
 //   emitter.emit('Это событие', 'какие-то данные после 2 сек', 'and one');
 // }, 2000);
@@ -138,5 +146,6 @@ export class Table extends ExcelComponent {
 //   unsub();
 // }, 3000);
 // setTimeout(() => {
-//   emitter.emit('Это событие', 'какие-то данные после 4 сек уже unsub', 'and one');
+//   emitter.emit('Это событие',
+// 'какие-то данные после 4 сек уже unsub', 'and one');
 // }, 4000);

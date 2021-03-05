@@ -9,11 +9,6 @@
     "no-console": "off",
     "require-jsdoc": "off",
     "operator-linebreak": "off",
-    "max-len": "off",
-    "no-debugger": "off",
-    "space-before-function-paren": "off",
-    "indent": "off",
-
     // Mandatory use of consistent spaces in braces
     "object-curly-spacing": [
       2,

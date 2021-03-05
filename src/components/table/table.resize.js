@@ -3,8 +3,10 @@ import { $ } from '@core/dom';
 export function resizeHandler($root, event) {
   return new Promise((resolve) => {
     const $resizer = $(event.target);
-    // const $parent = $resizer.$el.parentNode; // Если добавить еще блок например с фильтром то родитель будет другим // Bad
-    // const $parent = $resizer.$el.closest(); // Bad так как могут изменится классы
+    // const $parent = $resizer.$el.parentNode;
+    // Если добавить еще блок например с фильтром то родитель будет другим
+    // Bad const $parent = $resizer.$el.closest();
+    // Bad так как могут изменится классы
     const $parent = $resizer.closest('[data-type="resizable"]');
     const coords = $parent.getCoordsNode();
     const whichColumn = $parent.data.col;

@@ -1,6 +1,5 @@
 // Pure func
 // String.fromCharCode(65) = 'A'
-
 import { defaultStyles } from '../../constans';
 import { parse } from '../../core/parse';
 import { stylesToString } from '../../core/utils';
@@ -21,7 +20,11 @@ export function createTable(rowsCount = 10, state = {}) {
   rows.push(createRow('', cols, {}));
   // формируем остальные ряды
   for (let row = 0; row < rowsCount; row++) {
-    rows.push(createRow(row + 1, generateCells(colsCount, row, state), state.rowState));
+    rows.push(createRow(
+        row + 1,
+        generateCells(colsCount, row, state),
+        state.rowState)
+    );
   }
   return rows.join('');
 }
@@ -29,15 +32,15 @@ export function createTable(rowsCount = 10, state = {}) {
 function generateColumns(colsCount, state) {
   return (
     new Array(colsCount)
-      .fill('')
-      .map(toChar)
-      .map(widthFrom(state))
-      .map(toColumn)
-      // .map((col, index) => {
-      //   const width = getWidth(state, index);
-      //   return toColumn(col, index, width);
-      // })
-      .join('')
+        .fill('')
+        .map(toChar)
+        .map(widthFrom(state))
+        .map(toColumn)
+    // .map((col, index) => {
+    //   const width = getWidth(state, index);
+    //   return toColumn(col, index, width);
+    // })
+        .join('')
   );
 }
 
@@ -50,7 +53,7 @@ function getHeight(state, indexRow) {
 }
 
 function widthFrom(state) {
-  return function (col, index) {
+  return function(col, index) {
     const width = getWidth(state, index);
     return { col, index, width };
   };
@@ -61,7 +64,9 @@ function generateCells(colsCount, row, state) {
 }
 
 function createRow(rowIndex, content, state) {
-  const rowResize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
+  const rowResize = rowIndex
+        ? '<div class="row-resize" data-resize="row"></div>'
+        : '';
   const height = getHeight(state, rowIndex);
   return `
     <div 
@@ -94,7 +99,7 @@ function toColumn({ col, index, width }) {
 }
 
 function toCell(row, state) {
-  return function (_, col) {
+  return function(_, col) {
     const width = getWidth(state.colState, col);
     const id = `${row}:${col}`;
     const data = state.dataState[id];
