@@ -3,7 +3,7 @@
 
 import { ExcelComponent } from '@core/ExcelComponent';
 
-export class ExcelStateComponent extends ExcelComponent {
+export class StateComponent extends ExcelComponent {
   constructor(...args) {
     super(...args);
   }

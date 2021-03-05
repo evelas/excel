@@ -1,9 +1,9 @@
-import { ExcelState } from '@core/state/localState/ExcelStateComponent';
+import { StateComponent } from '@core/state/localState/StateComponent';
 import { createToolbar } from './toolbar.template';
 import { $ } from '@core/dom';
 import { defaultStyles } from './../../constans';
 
-export class Toolbar extends ExcelState {
+export class Toolbar extends StateComponent {
   static className = 'excel__toolbar';
 
   constructor($root, options) {

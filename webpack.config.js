@@ -5,7 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-//режим сборки пакет cross-env к scripts в package.json
+// режим сборки пакет cross-env к scripts в package.json
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
@@ -16,8 +16,8 @@ const jsLoaders = () => {
     {
       loader: 'babel-loader',
       options: {
-        //иногда можно вынести presets в отдельный файл babelrc
-        //как и browserslist
+        // иногда можно вынести presets в отдельный файл babelrc
+        // как и browserslist
         presets: ['@babel/preset-env'],
         plugins: ['@babel/plugin-proposal-class-properties'],
       },
@@ -79,7 +79,7 @@ module.exports = {
   module: {
     // описываем loaders
     rules: [
-      //scss
+      // scss
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -91,7 +91,7 @@ module.exports = {
           'sass-loader',
         ],
       },
-      //babel
+      // babel
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
