@@ -4,6 +4,7 @@ import {
   CHANGE_TEXT,
   CHANGE_TOOLBAR_STYLES,
   TABLE_RESIZE,
+  UPDATE_DATE,
 } from './types';
 
 export function tableResize(data) {
@@ -39,5 +40,11 @@ export function tableName(data) {
   return {
     type: CHANGE_TABLE_NAME,
     data,
+  };
+}
+
+export function updateDate() {
+  return {
+    type: UPDATE_DATE,
   };
 }

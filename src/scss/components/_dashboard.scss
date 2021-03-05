@@ -74,16 +74,16 @@
     padding: 12px 14px 12px 16px;
     margin-bottom: 10px;
 
+    cursor: pointer;
+    color: #202124;
+    font-size: 14px;
+
     &:hover {
       background-color: #e6f4ea;
       border-radius: 25px;
     }
-
-    a {
-      text-decoration: none;
-      cursor: pointer;
-      color: #202124;
-      font-size: 14px;
-    }
+  }
+  a {
+    text-decoration: none;
   }
 }

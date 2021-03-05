@@ -1,15 +1,13 @@
 import { $ } from '@core/dom';
-import { Emitter } from '@core/Emitter';
-import { StoreSubscriber } from '../../core/StoreSubscriber';
+import { Emitter } from '@core/emitter/Emitter';
+import { StoreSubscriber } from '../../core/state/StoreSubscriber';
+import { preventDefault } from '../../core/utils';
+import { updateDate } from '../../redux/actions/actions';
 
 // Корневой компонент для страницы excel
 // $ - dom node
 export class Excel {
-  constructor(selector, options) {
-    // this.$el = document.querySelector(selector);
-    // нужно работать в инснансе класса dom
-    // поэтому el создаем с помощью нашей библы
-    this.$el = $(selector);
+  constructor(options) {
     this.components = options.components || [];
     this.emitter = new Emitter();
     this.store = options.store;
@@ -46,12 +44,11 @@ export class Excel {
     });
     return $root;
   }
-  render() {
-    // у node есть метод insert
-    // afterbegin afterend beforebegin beforeend
-    // this.$el.insertAdjacentHTML('afterbegin', `<h1>test</h1>`);
-    this.$el.append(this.getRoot());
-
+  init() {
+    if (process.env.NODE_ENV === 'production') {
+      document.addEventListener('contextmenu', preventDefault);
+    }
+    this.store.dispatch(updateDate());
     this.subscriber.subscribeComponents(this.components);
     // у каждого компонента вызываем init
     this.components.forEach((component) => component.init());
@@ -60,6 +57,7 @@ export class Excel {
   destroy() {
     this.subscriber.unsubscribeFromStore();
     this.components.forEach((component) => component.destroy());
+    document.removeEventListener('contextmenu', preventDefault);
   }
 }
 // $el - как StyleGuide. Так понятее,

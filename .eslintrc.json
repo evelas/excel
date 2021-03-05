@@ -10,7 +10,6 @@
     "require-jsdoc": "off",
     "operator-linebreak": "off",
     "max-len": "off",
-    "no-debugger": "off",
     "space-before-function-paren": "off",
     "indent": "off",
 

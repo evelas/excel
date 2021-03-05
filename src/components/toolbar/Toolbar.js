@@ -1,4 +1,4 @@
-import { ExcelStateComponent } from '@core/ExcelStateComponent';
+import { ExcelStateComponent } from '@core/state/localState/ExcelStateComponent';
 import { createToolbar } from './toolbar.template';
 import { $ } from '@core/dom';
 import { defaultStyles } from './../../constans';
