@@ -34,7 +34,9 @@ export class Router {
     console.log(this.$placeholder);
     // const Page = this.routes.excel;
     // const page = new Page();
-    const Page = ActiveRoute.path.includes('excel') ? this.routes.excel : this.routes.dashboard;
+    const Page = ActiveRoute.path.includes('excel')
+                ? this.routes.excel
+                : this.routes.dashboard;
     // создаем инстантс класса Page,
     // для доступ к getRoot и прочему
     this.page = new Page(ActiveRoute.param);

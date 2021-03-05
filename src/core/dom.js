@@ -2,7 +2,9 @@
 // оборачиваем в $
 class Dom {
   constructor(selector) {
-    this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    this.$el = typeof selector === 'string'
+              ? document.querySelector(selector)
+              : selector;
   }
   // get/set
   // если не передаем параметр в html
