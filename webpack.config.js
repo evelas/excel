@@ -12,17 +12,7 @@ const isDev = !isProd;
 const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`);
 
 const jsLoaders = () => {
-  const loaders = [
-    {
-      loader: 'babel-loader',
-      options: {
-        // иногда можно вынести presets в отдельный файл babelrc
-        // как и browserslist
-        presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-proposal-class-properties'],
-      },
-    },
-  ];
+  const loaders = ['babel-loader'];
 
   if (isDev) {
     loaders.push('eslint-loader');
