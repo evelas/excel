@@ -1,6 +1,6 @@
 export class Page {
   constructor(params) {
-    this.params = params;
+    this.params = params || Date.now().toString();
   }
   // у всех страниц будет getRoot, которые наследуются от Page
   // тогда можем обращаться к getRoot только в классе Page
