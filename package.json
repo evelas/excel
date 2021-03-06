@@ -6,6 +6,12 @@
   "repository": "git@github.com:evelas/excel.git",
   "author": "Nick Shuvalov <n.n.shuvalov@yandex.ru>",
   "license": "MIT",
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^@core/(.*)$": "<rootDir>/src/core/$1"
+    }
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve",
     "build": "cross-env NODE_ENV=production webpack --mode production",
