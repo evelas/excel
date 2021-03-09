@@ -33,10 +33,6 @@ function getAllKeys() {
 
 export function createRecordsTable() {
   const keys = getAllKeys();
-  console.log(keys.map(toHTML).join(''));
-  Object.keys(keys).forEach((key) => {
-    console.log(keys[key]);
-  });
 
   if (!keys.length) {
     return `<p>Вы пока не создали ни одной таблицы</p>`;

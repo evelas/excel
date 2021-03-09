@@ -1,6 +1,5 @@
-import { Page } from '../core/routing/Page';
+import { Page } from '../core/page/Page';
 import { createStore } from '@core/state/createStore';
-import { debounce, storage } from '@core/utils';
 import { rootReducer } from '../redux/rootReducer';
 import { normalizeInitialState } from '../redux/initialState';
 import { Excel } from '@/components/excel/Excel';
@@ -8,52 +7,9 @@ import { Header } from '@/components/header/Header';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { Formula } from '@/components/formula/Formula';
 import { Table } from '@/components/table/Table';
+import { StateProcessor } from '../core/page/StateProcessor';
+import { LocalStorageClient } from '../shared/LocalStorageClient';
 
-function storageName(param) {
-  return 'excel:' + param;
-}
-
-class StateProcessor {
-  constructor(client, delay = 300) {
-    this.client = client;
-    this.listen = debounce(this.listen.bind(this), delay);
-  }
-
-  // Сохраняет state в client
-  listen(state) {
-    this.client.save(state);
-  }
-
-  // Метод для получения state
-  // в client находится другой new класс
-  get() {
-    return this.client.get();
-  }
-}
-
-// отдельный клиент
-// можно сделать клиент под сервер
-class LocalStorageClient {
-  constructor(params) {
-    this.params = storageName(params);
-  }
-
-  // как только сохранится state
-  // промис resolve
-  save(state) {
-    storage(this.params, state);
-    return Promise.resolve();
-  }
-
-  get() {
-    // return Promise.resolve(storage(this.params));
-    return new Promise((resolve) => {
-      setTimeout(() =>{
-        resolve(storage(this.params));
-      }, 2500);
-    });
-  }
-}
 
 export class ExcelPage extends Page {
   constructor(param) {

@@ -33,7 +33,6 @@ export class Router {
     }
     // добавляем loader
     this.$placeholder.clear().append(this.loader);
-    console.log(this.$placeholder);
     // const Page = this.routes.excel;
     // const page = new Page();
     const Page = ActiveRoute.path.includes('excel')
