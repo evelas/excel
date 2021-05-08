@@ -1,4 +1,5 @@
 import { $ } from '@core/dom';
+import { Loader } from '../../components/loader/loader';
 import { ActiveRoute } from './ActiveRoute';
 // import { ActiveRoute } from './ActiveRoute';
 // import { Page } from '@core/routing/Page';
@@ -10,6 +11,7 @@ export class Router {
     }
     this.$placeholder = $(selector);
     this.routes = routes;
+    this.loader = new Loader();
 
     this.page = null;
     this.changePageHandler = this.changePageHandler.bind(this);
@@ -25,13 +27,12 @@ export class Router {
     window.removeEventListener('hashchange', this.changePageHandler);
   }
 
-  changePageHandler() {
+  async changePageHandler() {
     if (this.page) {
       this.page.destroy();
     }
-
-    this.$placeholder.clear();
-    console.log(this.$placeholder);
+    // добавляем loader
+    this.$placeholder.clear().append(this.loader);
     // const Page = this.routes.excel;
     // const page = new Page();
     const Page = ActiveRoute.path.includes('excel')
@@ -41,7 +42,10 @@ export class Router {
     // для доступ к getRoot и прочему
     this.page = new Page(ActiveRoute.param);
 
-    this.$placeholder.append(this.page.getRoot());
+    const root = await this.page.getRoot();
+
+    // чистим loader
+    this.$placeholder.clear().append(root);
     this.page.afterRender();
   }
 }
